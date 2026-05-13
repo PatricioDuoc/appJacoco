@@ -1,0 +1,27 @@
+name: Docker Pipeline
+
+on:
+  push:
+
+jobs:
+
+  docker:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar Docker instalado
+        run: docker --version
+
+      - name: Construir imagen Docker
+        run: docker build -t app-jacoco .
+
+      - name: Ejecutar contenedor
+        run: docker run -d -p 8080:8080 --name mi_app app-jacoco
+
+      - name: Mostrar contenedores activos
+        run: docker ps
